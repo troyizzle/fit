@@ -16,6 +16,7 @@ export async function createActivity({ object_id, object_type, owner_id }: {
   owner_id: number,
 }) {
   const activityId = object_id
+  console.log({ owner_id })
 
   const user = await db.query.users.findFirst({
     where: eq(users.athelteId, owner_id),
@@ -28,7 +29,7 @@ export async function createActivity({ object_id, object_type, owner_id }: {
 
   const accessToken = user?.accounts[0]?.access_token
 
-  console.log(accessToken)
+  console.log({ accessToken })
 
   if (!accessToken) {
     return Response.json({ status: 404 })
@@ -39,8 +40,6 @@ export async function createActivity({ object_id, object_type, owner_id }: {
   const activity = await strava.activities.get({
     id: activityId,
   })
-
-  console.log(activity)
 
   fs.writeFileSync('activity.json', JSON.stringify(activity, null, 2))
 
@@ -76,6 +75,7 @@ export async function createActivity({ object_id, object_type, owner_id }: {
       totalElevationGain: activity.total_elevation_gain,
       trainer: activity.trainer,
       private: activity.private,
+      userId: user.id,
     }).returning({ activityId: activities.id })
 
     activity.laps.forEach(async (lap) => {

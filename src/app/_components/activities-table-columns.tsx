@@ -15,7 +15,6 @@ import {
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu"
 import { DataTableColumnHeader } from "~/components/ui/data-table/data-table-column-header"
-import Link from "next/link"
 
 export function getColumns(): ColumnDef<Activity>[] {
   return [
@@ -48,9 +47,7 @@ export function getColumns(): ColumnDef<Activity>[] {
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Name" />
       ),
-      cell: ({ row }) => <Link href={`/${row.getValue("at")}/${}`}>
-        <div className="w-20">{row.getValue("name")}</div>
-      </Link>,
+      cell: ({ row }) => <div className="w-20">{row.getValue("name")}</div>,
       enableSorting: false,
       enableHiding: false,
     },
