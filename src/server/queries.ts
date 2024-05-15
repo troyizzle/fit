@@ -9,8 +9,27 @@ import fs from 'fs'
 export async function deleteActivity({ stravaId }: { stravaId: string }) {
   await db.delete(activities).where(eq(activities.stravaId, stravaId));
 }
+type lapType = {
+  id: string,
+  activityId: number,
+  stravaId: number,
+  name: string,
+  elapsed_time: number,
+  moving_time: number,
+  start_date: string,
+  start_date_local: string,
+  distance: number,
+  average_speed: number,
+  max_speed: number,
+  split: number,
+  start_index: number,
+  end_index: number,
+  total_elevation_gain: number,
+  device_watts: boolean,
+  pace_zone: number,
+}
 
-export async function createActivity({ object_id, object_type, owner_id }: {
+export async function createActivity({ object_id, owner_id }: {
   object_id: number,
   object_type: string,
   owner_id: number,
@@ -46,6 +65,7 @@ export async function createActivity({ object_id, object_type, owner_id }: {
   await db.transaction(async (tx) => {
     const newActivity = await tx.insert(activities).values({
       name: activity.name,
+      // @ts-expect-error - map is not defined in the type
       map: activity.map ?? {},
       type: activity.sport_type,
       sport: activity.sport_type,
@@ -68,7 +88,8 @@ export async function createActivity({ object_id, object_type, owner_id }: {
       photoCount: activity.photo_count,
       averageSpeed: activity.average_speed,
       maxSpeed: activity.max_speed,
-      hasHeartrate: activity.has_heartrate,
+      // @ts-expect-error - average_cadence is not defined in the type
+      hasHeartrate: activity.has_heartrate as string,
       calories: activity.calories,
       movingTime: activity.moving_time,
       elapsedTime: activity.elapsed_time,
@@ -78,9 +99,18 @@ export async function createActivity({ object_id, object_type, owner_id }: {
       userId: user.id,
     }).returning({ activityId: activities.id })
 
-    activity.laps.forEach(async (lap) => {
+    const activityId = newActivity[0]?.activityId
+
+    if (!activityId) {
+      return
+    }
+
+    // @ts-expect-error - laps is not defined in the type
+    const activityLaps = activity.laps as lapType[]
+
+    for (const lap of activityLaps) {
       await tx.insert(laps).values({
-        activityId: newActivity[0]?.activityId,
+        activityId,
         stravaId: lap.id,
         name: lap.name,
         elapsedTime: lap.elapsed_time,
@@ -97,7 +127,7 @@ export async function createActivity({ object_id, object_type, owner_id }: {
         deviceWatts: lap.device_watts,
         paceZone: lap.pace_zone,
       })
-    })
+    }
   })
 }
 

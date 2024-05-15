@@ -9,8 +9,8 @@ export default function LoginButton() {
   const [isPending, startTransition] = useTransition();
 
   async function handleSignIn() {
-    startTransition(() => {
-      signIn("strava")
+    startTransition(async () => {
+      await signIn("strava")
     })
   }
 

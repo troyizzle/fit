@@ -291,7 +291,7 @@ export function useDataTable<TData, TValue>({
         (searchableColumns.find((column) => column.value === key) &&
           !debouncedSearchableColumnFilters.find(
             (column) => column.id === key
-          )) ||
+          )) ??
         (filterableColumns.find((column) => column.value === key) &&
           !filterableColumnFilters.find((column) => column.id === key))
       ) {
