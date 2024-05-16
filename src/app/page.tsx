@@ -6,6 +6,7 @@ export default async function Home() {
 
   return (
     <div>
+      activities count: {activities.pageCount}
       {activities.data.map((activity) => (
         <div key={activity.id}>{JSON.stringify(activity)}</div>
       ))}
