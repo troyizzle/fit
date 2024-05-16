@@ -1,0 +1,792 @@
+{
+  "id": "b4cdeb3a-48db-46a7-baf8-3751ec357687",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "version": "6",
+  "dialect": "postgresql",
+  "tables": {
+    "public.fit_account": {
+      "name": "fit_account",
+      "schema": "",
+      "columns": {
+        "userId": {
+          "name": "userId",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "type": {
+          "name": "type",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "provider": {
+          "name": "provider",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "providerAccountId": {
+          "name": "providerAccountId",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "refresh_token": {
+          "name": "refresh_token",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "access_token": {
+          "name": "access_token",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "expires_at": {
+          "name": "expires_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "token_type": {
+          "name": "token_type",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "scope": {
+          "name": "scope",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "id_token": {
+          "name": "id_token",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "session_state": {
+          "name": "session_state",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "account_userId_idx": {
+          "name": "account_userId_idx",
+          "columns": [
+            "userId"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "fit_account_userId_fit_user_id_fk": {
+          "name": "fit_account_userId_fit_user_id_fk",
+          "tableFrom": "fit_account",
+          "tableTo": "fit_user",
+          "columnsFrom": [
+            "userId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "fit_account_provider_providerAccountId_pk": {
+          "name": "fit_account_provider_providerAccountId_pk",
+          "columns": [
+            "provider",
+            "providerAccountId"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "public.fit_activity": {
+      "name": "fit_activity",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "userId": {
+          "name": "userId",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "distance": {
+          "name": "distance",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "movingTime": {
+          "name": "movingTime",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "elapsedTime": {
+          "name": "elapsedTime",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "totalElevationGain": {
+          "name": "totalElevationGain",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "type": {
+          "name": "type",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "shortType": {
+          "name": "shortType",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "workoutType": {
+          "name": "workoutType",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "stravaId": {
+          "name": "stravaId",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "startDate": {
+          "name": "startDate",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "startDateLocal": {
+          "name": "startDateLocal",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "timezone": {
+          "name": "timezone",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "utcOffset": {
+          "name": "utcOffset",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "locationCity": {
+          "name": "locationCity",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "locationState": {
+          "name": "locationState",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "locationCountry": {
+          "name": "locationCountry",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "achievementCount": {
+          "name": "achievementCount",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "kudosCount": {
+          "name": "kudosCount",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "commentCount": {
+          "name": "commentCount",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "athleteCount": {
+          "name": "athleteCount",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "photoCount": {
+          "name": "photoCount",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "map": {
+          "name": "map",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "trainer": {
+          "name": "trainer",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "commute": {
+          "name": "commute",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "manual": {
+          "name": "manual",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "private": {
+          "name": "private",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "averageSpeed": {
+          "name": "averageSpeed",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "maxSpeed": {
+          "name": "maxSpeed",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "hasHeartrate": {
+          "name": "hasHeartrate",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "elevHigh": {
+          "name": "elevHigh",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "elevLow": {
+          "name": "elevLow",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "calories": {
+          "name": "calories",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "fit_activity_userId_fit_user_id_fk": {
+          "name": "fit_activity_userId_fit_user_id_fk",
+          "tableFrom": "fit_activity",
+          "tableTo": "fit_user",
+          "columnsFrom": [
+            "userId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "fit_activity_stravaId_unique": {
+          "name": "fit_activity_stravaId_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "stravaId"
+          ]
+        }
+      }
+    },
+    "public.fit_lap": {
+      "name": "fit_lap",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "activityId": {
+          "name": "activityId",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "stravaId": {
+          "name": "stravaId",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "elapsedTime": {
+          "name": "elapsedTime",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "movingTime": {
+          "name": "movingTime",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "startDate": {
+          "name": "startDate",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "startDateLocal": {
+          "name": "startDateLocal",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "distance": {
+          "name": "distance",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "averageSpeed": {
+          "name": "averageSpeed",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "maxSpeed": {
+          "name": "maxSpeed",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "lapIndex": {
+          "name": "lapIndex",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "split": {
+          "name": "split",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "startIndex": {
+          "name": "startIndex",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "endIndex": {
+          "name": "endIndex",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "totalElevationGain": {
+          "name": "totalElevationGain",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "deviceWatts": {
+          "name": "deviceWatts",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "paceZone": {
+          "name": "paceZone",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "fit_lap_activityId_fit_activity_id_fk": {
+          "name": "fit_lap_activityId_fit_activity_id_fk",
+          "tableFrom": "fit_lap",
+          "tableTo": "fit_activity",
+          "columnsFrom": [
+            "activityId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "fit_lap_stravaId_unique": {
+          "name": "fit_lap_stravaId_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "stravaId"
+          ]
+        }
+      }
+    },
+    "public.fit_session": {
+      "name": "fit_session",
+      "schema": "",
+      "columns": {
+        "sessionToken": {
+          "name": "sessionToken",
+          "type": "varchar(255)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "userId": {
+          "name": "userId",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "expires": {
+          "name": "expires",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "session_userId_idx": {
+          "name": "session_userId_idx",
+          "columns": [
+            "userId"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "fit_session_userId_fit_user_id_fk": {
+          "name": "fit_session_userId_fit_user_id_fk",
+          "tableFrom": "fit_session",
+          "tableTo": "fit_user",
+          "columnsFrom": [
+            "userId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.fit_splitMetric": {
+      "name": "fit_splitMetric",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "activityId": {
+          "name": "activityId",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "distance": {
+          "name": "distance",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "elapsedTime": {
+          "name": "elapsedTime",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "movingTime": {
+          "name": "movingTime",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "split": {
+          "name": "split",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "averageSpeed": {
+          "name": "averageSpeed",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "averageGradeAdjustedSpeed": {
+          "name": "averageGradeAdjustedSpeed",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "paceZone": {
+          "name": "paceZone",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "fit_splitMetric_activityId_fit_activity_id_fk": {
+          "name": "fit_splitMetric_activityId_fit_activity_id_fk",
+          "tableFrom": "fit_splitMetric",
+          "tableTo": "fit_activity",
+          "columnsFrom": [
+            "activityId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.fit_splitStandard": {
+      "name": "fit_splitStandard",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "activityId": {
+          "name": "activityId",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "distance": {
+          "name": "distance",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "elapsedTime": {
+          "name": "elapsedTime",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "elevationDifference": {
+          "name": "elevationDifference",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "movingTime": {
+          "name": "movingTime",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "split": {
+          "name": "split",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "averageSpeed": {
+          "name": "averageSpeed",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "averageGradeAdjustedSpeed": {
+          "name": "averageGradeAdjustedSpeed",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "paceZone": {
+          "name": "paceZone",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "fit_splitStandard_activityId_fit_activity_id_fk": {
+          "name": "fit_splitStandard_activityId_fit_activity_id_fk",
+          "tableFrom": "fit_splitStandard",
+          "tableTo": "fit_activity",
+          "columnsFrom": [
+            "activityId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.fit_user": {
+      "name": "fit_user",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(255)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "emailVerified": {
+          "name": "emailVerified",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "image": {
+          "name": "image",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "athelteId": {
+          "name": "athelteId",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.fit_verificationToken": {
+      "name": "fit_verificationToken",
+      "schema": "",
+      "columns": {
+        "identifier": {
+          "name": "identifier",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "token": {
+          "name": "token",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "expires": {
+          "name": "expires",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "fit_verificationToken_identifier_token_pk": {
+          "name": "fit_verificationToken_identifier_token_pk",
+          "columns": [
+            "identifier",
+            "token"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}
