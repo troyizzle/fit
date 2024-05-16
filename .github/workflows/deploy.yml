@@ -40,4 +40,9 @@ jobs:
       - name: SSH into DigitalOcean droplet and run Docker command
         run: |
           ssh -o StrictHostKeyChecking=no root@64.23.169.60 "sudo docker rm -f fit && docker run --name fit \
-            --pull=always -p 3009:3000 -d -t troyizzle/fit --env-file .fit_env"
+            -e DATABASE_URL=${{ secrets.DATABASE_URL }} \
+            -e NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }} \
+            -e NEXTAUTH_URL=${{ secrets.NEXTAUTH_URL }} \
+            -e STRAVA_CLIENT_ID=${{ secrets.STRAVA_CLIENT_ID }} \
+            -e STRAVA_CLIENT_SECRET=${{ secrets.STRAVA_CLIENT_SECRET }} \
+            --pull=always -p 3009:3000 -d -t troyizzle/fit"
