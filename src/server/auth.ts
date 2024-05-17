@@ -51,6 +51,7 @@ export const authOptions: NextAuthOptions = {
   adapter: DrizzleAdapter(db, createTable) as Adapter,
   providers: [
     StravaProvider({
+      issuer: 'fit.troyizzle.com',
       authorization: {
         params: {
           scope: 'activity:read_all',
